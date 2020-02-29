@@ -14,7 +14,8 @@ import {
     Card,
     CardMedia,
     Typography,
-    Paper
+    Paper,
+    Modal
 } from '@material-ui/core';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -25,22 +26,38 @@ import CollegeImage from '../resources/images/college.jpg';
 import AnimationArea from './AnimationArea';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+// import NoHistoryNewReturnButton from '../containers/NoHistoryNewReturnButton';
+import NewReturnModal from '../containers/NewReturnModal';
 
 
 
 class Home extends Component {
+  constructor(props){
+      super(props);
+      this.state = {
+          pastReturns:[],
+          modalOpen: false
+        };
+  }
   
 
 
 
-
   render() {
+    const addNewReturn = () => {
+        this.setState({modalOpen: true});
+
+    };
+
+    const handleClose = () => {
+        this.setState({modalOpen: false});
+    };
+
     return (
         <HomeContainer>
             <CTAArea>
                 <NoHistoryContainer>
-                    <NoHistoryNewReturnButton onClick={()=>{}}>
+                    <NoHistoryNewReturnButton onClick={()=>{addNewReturn()}}>
                         <AddCircleIcon/>
                         <ReceiptIcon/>
                         <h3>You have no past returns</h3>
@@ -49,6 +66,7 @@ class Home extends Component {
                 </NoHistoryContainer>
             </CTAArea>
             <AnimationArea/>
+            <NewReturnModal open={this.state.modalOpen} handleClose={handleClose}></NewReturnModal>
         </HomeContainer>
     );
   }
