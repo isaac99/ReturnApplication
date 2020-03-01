@@ -27,21 +27,48 @@ import AnimationArea from './AnimationArea';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import NoHistoryNewReturnButton from '../containers/NoHistoryNewReturnButton';
+import ReturnHistoryCards from '../containers/ReturnHistoryCards';
 import NewReturnModal from '../containers/NewReturnModal';
-
-
+import { firebase, db } from '../configs/FirebaseConfig';
 
 class Home extends Component {
   constructor(props){
-      super(props);
-      this.state = {
-          pastReturns:[],
-          modalOpen: false
-        };
+    super(props);
+
+    this.state = {
+        returns: [],
+        modalOpen: false
+    };
+      
   }
-  
 
+  componentDidMount(){
+    console.log('component mounted');
+    
 
+   
+
+    let history = new Promise((resolve, reject)=>{
+        let returns = [];
+
+        db.collection("returns")
+        .onSnapshot(function(snapshot) {
+            snapshot.forEach(function(doc) {
+                returns.push(doc.data().merchant);
+            });
+            // console.log(returns);
+            resolve(returns);
+        }, function(error) {
+            //...
+            console.log('there was an error');
+            reject(returns);
+        });
+    });
+
+    history.then((returns)=>{
+        this.setState({returns:returns});
+    });
+  }
 
   render() {
     const addNewReturn = () => {
@@ -53,9 +80,16 @@ class Home extends Component {
         this.setState({modalOpen: false});
     };
 
+    const returns = [...this.state.returns];
+
     return (
         <HomeContainer>
             <CTAArea>
+            <Button size="small" color="primary">
+                Add New Return
+            </Button>
+            {
+                this.state.returns.length === 0 &&
                 <NoHistoryContainer>
                     <NoHistoryNewReturnButton onClick={()=>{addNewReturn()}}>
                         <AddCircleIcon/>
@@ -64,6 +98,12 @@ class Home extends Component {
                         <p>Start the returns process by clicking here</p>
                     </NoHistoryNewReturnButton>
                 </NoHistoryContainer>
+            }
+            {
+                returns.map((item)=> {
+                    return <ReturnHistoryCards merchant={item.merchant}></ReturnHistoryCards>
+                })
+            }
             </CTAArea>
             <AnimationArea/>
             <NewReturnModal open={this.state.modalOpen} handleClose={handleClose}></NewReturnModal>

@@ -6,13 +6,9 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
-// Firebase App (the core Firebase SDK) is always required and
-// must be listed before other Firebase SDKs
-import * as firebase from "firebase/app";
+import {firebase, db} from './configs/FirebaseConfig';
+// import db from './configs/FirebaseConfig';
 
-// Add the Firebase services that you want to use
-import "firebase/auth";
-import "firebase/firestore";
 
 ReactDOM.render(
     <Provider store={configureStore()}>
