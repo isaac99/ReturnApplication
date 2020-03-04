@@ -85,9 +85,9 @@ class Home extends Component {
     return (
         <HomeContainer>
             <CTAArea>
-            <Button size="small" color="primary">
+            {/* <Button size="small" color="primary">
                 Add New Return
-            </Button>
+            </Button> */}
             {
                 this.state.returns.length === 0 &&
                 <NoHistoryContainer>
@@ -99,10 +99,11 @@ class Home extends Component {
                     </NoHistoryNewReturnButton>
                 </NoHistoryContainer>
             }
-            {
-                returns.map((item)=> {
-                    return <ReturnHistoryCards merchant={item.merchant}></ReturnHistoryCards>
-                })
+
+            {   returns && returns.length > 0 &&
+                    returns.map((item, index)=> {
+                        return <ReturnHistoryCards key={index} merchant={item.merchant}></ReturnHistoryCards>
+                    })
             }
             </CTAArea>
             <AnimationArea/>
@@ -135,6 +136,10 @@ const HomeRow = styled.div`
     // width: 100%;
 `;
 
+const ScrollableCardArea = styled.div`
+    overflow:scroll;
+`;
+
 const NoHistoryNewReturnButton = styled.button`
     background:transparent;
     border:none;
@@ -164,6 +169,7 @@ const ImageContainer = styled.img`
     background-color: #fff9ea;
     // height: 100%;
     width: 100%;
+    overflow:scroll;
 
  `;
 

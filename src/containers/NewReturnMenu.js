@@ -15,20 +15,25 @@ import {
     CardMedia,
     Typography,
     Paper,
-    Modal
+    Modal,
+    MenuItem
+    // StyledMenu,
+    // StyledMenuItem
 } from '@material-ui/core';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import SendIcon from '@material-ui/icons/Send';
+import DraftsIcon from '@material-ui/icons/Drafts';
 
-const NewReturnMenu = ({}) => {
+const NewReturnMenu = ({open, handleClose}) => {
     return(
         <>
             <StyledMenu
                 id="customized-menu"
                 // anchorEl={anchorEl}
                 // keepMounted
-                // open={Boolean(anchorEl)}
-                // onClose={handleClose}
+                open={open}
+                onClose={handleClose}
                 >
                 <StyledMenuItem>
                     <ListItemIcon>
@@ -46,5 +51,13 @@ const NewReturnMenu = ({}) => {
         </>
     );
 };
+
+const StyledMenu = styled(Paper)`
+
+`;
+
+const StyledMenuItem = styled(MenuItem)`
+
+`;
 
 export default NewReturnMenu;

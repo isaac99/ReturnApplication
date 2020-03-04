@@ -80,26 +80,32 @@ const MenuOverlay = styled(Drawer)`
 `;
 
 const NavbarContainer = styled.div`
-    background-color:#fff9ea;
+    // background-color:#fff9ea;
+    background-color:black;
     display:flex;
     justify-content: space-between;
+    color: white;
 `;
 
 const LogoContainer= styled.div`
     // right:0;
     padding-right: 5px;
     font-weight: bold;
+    margin-left: 5px;
+    font-size:24px;
 `;
 
 const ButtonContainer = styled.div`
     display:flex;
     flex-direction: row;
-    min-width: 200px;
+    min-width: 300px;
+    color:white;
 `;
 
 const NavLink = styled(Link)`
     text-decoration: none;
-    color:black;
+    color:white;
+    font-size:23px;
 `;
 
 export default Navmenu;

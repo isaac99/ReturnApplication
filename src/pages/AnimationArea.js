@@ -27,7 +27,7 @@ import {
           return(
             <AnimationAreaDiv>
                 <AnimationContainer>
-                    <div style={{'height':'65%', 'display':'flex', 'flex-direction':'row'}}>
+                    <div style={{'height':'65%', 'display':'flex', 'flex-direction':'row', 'width':'100%'}}>
                         <TopLeftAnimation>
                             <CurvedLine style={{'--animation-order':'0'}} />
                             <CurvedLine style={{'--animation-order':'1'}} />
@@ -86,19 +86,23 @@ import {
     height: 100%;
     width: 79%;
     margin: 2px;
+    margin-top:0px;
     overflow:hidden;
     position:relative;
+    // margin-right:0px;
  `;
 
  const TopRightAnimation = styled.div`
-    flex-basis:19%;
+    flex-basis:21%;
     background-color:black;
     // width: 100%
     height: 100%;
-    width: 19%;
+    width: 21%;
     margin: 2px;
     overflow:hidden;
     position:relative;
+    margin-top:0px;
+    margin-right:0px;
  `;
 
  const BottomAnimation = styled.div`
@@ -117,7 +121,8 @@ import {
     flex-direction: column;
     height: 100%;
     width: 95%;
-    margin-left:auto
+    margin-left:auto;
+    overflow:hidden;
  `;
 
  const DiagonalLine = styled.div`
