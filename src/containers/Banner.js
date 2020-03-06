@@ -38,13 +38,13 @@ class Banner extends Component {
               {/* <p>This is the text on the secondary bar...</p> */}
               <BarItemFirst>
                 <h5><Button onClick={handleNewReturnClick}>New Return</Button></h5>
-                <NewReturnMenu open={this.state.open} handleClose={this.handleClose}></NewReturnMenu>
+                {/* <NewReturnMenu open={this.state.open} handleClose={this.handleClose}></NewReturnMenu> */}
               </BarItemFirst>
               <BarItemSecond>
-                <p>Bar Item 2</p>
+                <h5><Button>Item 2</Button></h5>
               </BarItemSecond>
               <BarItemThird>
-                <p>Bar Item 3</p>
+                <h5><Button>Item 3</Button></h5>
               </BarItemThird>
             </SecondaryBarContainer>
           </SecondaryBar>

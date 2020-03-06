@@ -28,12 +28,12 @@ const ReturnHistoryCards = ({merchant}) => {
 
     return(
         <Card>
-            <CardActionArea>
+            <CardActionAreaContainer>
                 <CardMedia
                     component="img"
                     alt="Contemplative Reptile"
-                    height="140"
-                    image={ReceiptIcon}
+                    height="100"
+                    image={require("../resources/images/contemplative-reptile.jpg")}
                     title="Contemplative Reptile"
                 />
                 <CardContent>
@@ -45,9 +45,14 @@ const ReturnHistoryCards = ({merchant}) => {
                         across all continents except Antarctica
                     </Typography>
                 </CardContent>
-            </CardActionArea>
+            </CardActionAreaContainer>
         </Card>
     );
 };
+
+const CardActionAreaContainer = styled(CardActionArea)`
+    flex-direction:row;
+    display:flex;
+`;
 
 export default ReturnHistoryCards;
