@@ -15,6 +15,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import styled from 'styled-components';
 import NewReturnMenu from './NewReturnMenu.js';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { newReturnModalAction } from '../actions/newReturnModalAction';
+
 
 class Banner extends Component {
   constructor(props){
@@ -28,7 +33,10 @@ class Banner extends Component {
   render() {
 
     const handleNewReturnClick = () => {
-      this.setState({open: true});
+      // this.setState({open: true});
+      this.props.newReturnModalAction(true);
+
+      console.log(this.props.newReturnMenuOpen);
     }
  
     return (
@@ -37,14 +45,14 @@ class Banner extends Component {
             <SecondaryBarContainer>
               {/* <p>This is the text on the secondary bar...</p> */}
               <BarItemFirst>
-                <h5><Button onClick={handleNewReturnClick}>New Return</Button></h5>
+                <Button><NavLink to={'/'} onClick={() => {handleNewReturnClick()}} className="nav-link">New Return</NavLink></Button>
                 {/* <NewReturnMenu open={this.state.open} handleClose={this.handleClose}></NewReturnMenu> */}
               </BarItemFirst>
               <BarItemSecond>
-                <h5><Button>Item 2</Button></h5>
+                <Button>Item 2</Button>
               </BarItemSecond>
               <BarItemThird>
-                <h5><Button>Item 3</Button></h5>
+                <Button>Item 3</Button>
               </BarItemThird>
             </SecondaryBarContainer>
           </SecondaryBar>
@@ -92,4 +100,22 @@ const SecondaryBarContainer = styled.div`
 
 `;
 
-export default Banner;
+const NavLink = styled(Link)`
+    text-decoration: none;
+    color:black;
+    font-size:23px;
+    width: 100%;
+`;
+
+function mapStateToProps({ newReturnMenuOpen }) {
+  return { newReturnMenuOpen };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ newReturnModalAction }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Banner);

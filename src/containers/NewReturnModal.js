@@ -57,6 +57,9 @@ const ModalContentPaper = styled(Paper)`
     flex-direction:column;
     text-align:center;
     width: 50%;
+    margin: auto;
+    padding: 25px;
+    margin-top: 8%;
 `;
 
 const TabContainer = styled.div`
@@ -64,7 +67,7 @@ const TabContainer = styled.div`
 `;
 
 const ModalContainer = styled(Modal)`
-    text-align:center;
+    // text-align:center;
 `;
 
 export default NewReturnModal;

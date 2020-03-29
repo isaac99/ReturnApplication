@@ -3,6 +3,9 @@
 */
 import { combineReducers } from 'redux';
 import simpleReducer from './sampleReducer';
+import newReturnModalReducer from './newReturnModalReducer';
+
 export default combineReducers({
- simpleReducer
+    simple: simpleReducer,
+    newReturnMenuOpen: newReturnModalReducer
 });

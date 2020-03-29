@@ -61,7 +61,17 @@ import {
                         </TopRightAnimation>
                     </div>
                     <BottomAnimation>
-                        <ZigZag />
+                        {/* <ZigZag /> */}
+                        {/* <ZigZag /> */}
+                        <HorizontalLine style={{'--animation-order':'0'}}></HorizontalLine>
+                        <HorizontalLine style={{'--animation-order':'3'}}></HorizontalLine>
+
+                        <HorizontalLine style={{'--animation-order':'1'}}></HorizontalLine>
+                        <HorizontalLineRed style={{'--animation-order':'4'}}></HorizontalLineRed>
+                        <HorizontalLine style={{'--animation-order':'7'}}></HorizontalLine>
+                        <HorizontalLineRed style={{'--animation-order':'6'}}></HorizontalLineRed>
+                        <HorizontalLine style={{'--animation-order':'5'}}></HorizontalLine>
+
                     </BottomAnimation>
                 </AnimationContainer>
             </AnimationAreaDiv>
@@ -104,6 +114,71 @@ import {
     margin-top:0px;
     margin-right:0px;
  `;
+
+ const HorizontalLine = styled.hr`
+    background: white;
+    height: 2px;
+    margin-bottom: 5%;
+    border: none;
+
+
+    animation-name: animateHorizontal;
+    // animation-duration: 4s;
+    animation-duration: calc(4s + var(--animation-order) * 30ms) ;
+
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    animation-timing-function:ease-in;
+    // animation-delay: calc(var(--animation-order) * 100ms);
+
+    left: -200%;
+    position: relative;
+    width: 120%;
+
+    // @keyframes animateHorizontal {
+    //     0% {
+        
+    //     }
+        
+    //     100% {
+    //         // top: 100px;
+    //         left: 100%;
+    //     }
+    // }
+`;
+
+const HorizontalLineRed = styled.hr`
+    background: red;
+    height: 2px;
+    margin-bottom: 5%;
+    border: none;
+
+
+    animation-name: animateHorizontal;
+    animation-duration: calc(4s + var(--animation-order) * 30ms) ;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+    animation-timing-function:ease-in;
+    // animation-delay: calc(var(--animation-order) * 100ms);
+
+
+    left: -200%;
+    position: relative;
+    width: 120%;
+
+    @keyframes animateHorizontal {
+        0% {
+        
+        }
+        
+        100% {
+            // top: 100px;
+            left: 100%;
+        }
+    }
+`;
 
  const BottomAnimation = styled.div`
     margin: 2px;
@@ -269,43 +344,93 @@ import {
     }
  `;
 
- const ZigZag = styled.div`
-    height: 2px;
-    width: 10%;
-    -webkit-transform: rotate(40deg);
-    -moz-transform: rotate(40deg);
-    transform: rotate(40deg);
-    position:absolute;
-    background-color: white;
-    left:10px;
-    top:10px;
+//  const ZigZag = styled.div`
+//     height: 2px;
+//     width: 10%;
+//     -webkit-transform: rotate(40deg);
+//     -moz-transform: rotate(40deg);
+//     transform: rotate(40deg);
+//     position:absolute;
+//     background-color: white;
+//     left:10px;
+//     top:10px;
 
-    ::before {
-        border-color: purple;
-        border-style: dotted;
-        height:100%;
-        width: 2px;
-        content: "";
-        position:relative;
+//     ::before {
+//         border-color: purple;
+//         border-style: dotted;
+//         height:100%;
+//         width: 2px;
+//         content: "";
+//         position:relative;
         
-    }
+//     }
+
+//     ::after {
+//         border-color: orange;
+//         border-style: dotted;
+//         height: 100%;
+//         width: 2px;
+//         content: "";
+//         position: absolute;
+//         left: 100%;
+//         bottom: 100%;
+//         height: 100%;
+        
+//     }
+//  `;
+
+// const ZigZag = styled.hr`
+//     font-size: 2.7em;
+//     background: 
+//         linear-gradient(135deg,black 51%,transparent 19%) -3em 0, 
+//         linear-gradient(225deg,black 51%,transparent 26%) -3em 0, 
+//         linear-gradient(315deg,black 25%,transparent 22%), 
+//         linear-gradient(45deg,black 25%,transparent 23%);
+//     background-size: 6em 100%;
+//     background-color: white;
+//     height: 7em;
+//     border: none;
+//     margin: 0;
+//     position: relative;
+//     top: -192px;
+// `;
+
+
+
+const ZigZag = styled.div`
+    position: relative;
+    padding: 8px 8px 32px 8px;
+    background: #dddccf;
 
     ::after {
-        border-color: orange;
-        border-style: dotted;
-        height: 100%;
-        width: 2px;
-        content: "";
+        background: linear-gradient(-45deg, red 16px, transparent 0), linear-gradient(45deg, #ffffff 16px, transparent 0);
+        background-position: left-bottom;
+        background-repeat: repeat-x;
+        background-size: 32px 32px;
+        content: " ";
+        display: block;
         position: absolute;
-        left: 100%;
-        bottom: 100%;
-        height: 100%;
-        
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: 32px;
     }
- `;
+`;
 
- const ZigZagRed = styled.div`
- 
+const ZigZagRed = styled.hr`
+    font-size: 2.7em;
+    background: 
+        linear-gradient(135deg, black 51%,transparent 19%) -3em 0, 
+        linear-gradient(225deg, black 51%,transparent 26%) -3em 0, 
+        linear-gradient(315deg, black 25%,transparent 22%), 
+        linear-gradient(45deg, black 25%,transparent 23%);
+    background-size: 6em 100%;
+    background-color: red;
+    height: 7em;
+    border: none;
+    margin: 0;
+    position: relative;
+    top: -192px;
  `;
 
   export default AnimationArea;

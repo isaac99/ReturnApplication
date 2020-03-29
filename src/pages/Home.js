@@ -30,6 +30,7 @@ import { bindActionCreators } from 'redux';
 import ReturnHistoryCards from '../containers/ReturnHistoryCards';
 import NewReturnModal from '../containers/NewReturnModal';
 import { firebase, db } from '../configs/FirebaseConfig';
+import { newReturnModalAction } from '../actions/newReturnModalAction';
 
 class Home extends Component {
   constructor(props){
@@ -42,12 +43,7 @@ class Home extends Component {
       
   }
 
-  componentDidMount(){
-    console.log('component mounted');
-    
-
-   
-
+  componentDidMount(){    
     let history = new Promise((resolve, reject)=>{
         let returns = [];
 
@@ -68,16 +64,24 @@ class Home extends Component {
     history.then((returns)=>{
         this.setState({returns:returns});
     });
+
+    //possible race condition here
+    if(this.props.newReturnMenuOpen === true){
+        this.setState({modalOpen: true});
+    }
+
+    console.log(this.props.newReturnMenuOpen);
   }
 
   render() {
     const addNewReturn = () => {
         this.setState({modalOpen: true});
-
+        this.props.newReturnModalAction(false);
     };
 
     const handleClose = () => {
         this.setState({modalOpen: false});
+        this.props.newReturnModalAction(false);
     };
 
     const returns = [...this.state.returns];
@@ -107,7 +111,7 @@ class Home extends Component {
             }
             </CTAArea>
             <AnimationArea/>
-            <NewReturnModal open={this.state.modalOpen} handleClose={handleClose}></NewReturnModal>
+            <NewReturnModal open={this.props.newReturnMenuOpen} handleClose={handleClose}></NewReturnModal>
         </HomeContainer>
     );
   }
@@ -173,12 +177,12 @@ const ImageContainer = styled.img`
 
  `;
 
-function mapStateToProps({  }) {
-    return {  };
+function mapStateToProps({ newReturnMenuOpen }) {
+    return { newReturnMenuOpen };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({ newReturnModalAction }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
