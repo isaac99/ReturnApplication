@@ -12,13 +12,14 @@ import {
     MailIcon,
     Drawer,
     IconButton,
-    Paper
+    Paper,
+    Menu
   } from '@material-ui/core';
   import MenuIcon from '@material-ui/icons/Menu';
   import styled from 'styled-components';
   import Banner from './Banner';
   import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+  import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 class Navmenu extends Component {
   constructor(props){
@@ -28,7 +29,7 @@ class Navmenu extends Component {
       }
   }
   
-  toggleDrawer(side, open) {
+  toggleLogin(side, open) {
     this.setState({left: open});
   }
 
@@ -52,7 +53,10 @@ class Navmenu extends Component {
                     <Button><NavLink to={'/'} onClick={() => this.closeMenu()} className="nav-link">My Returns</NavLink></Button>
                     <Button><NavLink to={'/about'} onClick={() => this.closeMenu()} className="nav-link">About</NavLink></Button>
                     {/* <Button><NavLink to={'/history'} onClick={() => this.closeMenu()} className="nav-link">Past Returns</NavLink></Button> */}
-                    <Button><NavLink to={'/account'} onClick={() => this.closeMenu()} className="nav-link">Account</NavLink></Button>
+                    <IconButton onClick={() => this.props.openLoginModal()}>
+                        {/*<NavLink to={'/account'} onClick={() => this.closeMenu()} className="nav-link">Account</NavLink>*/}
+                        <AccountBoxIcon style={{ color: 'white' }} />
+                    </IconButton>
                 </ButtonContainer>
             </NavbarContainer>
 

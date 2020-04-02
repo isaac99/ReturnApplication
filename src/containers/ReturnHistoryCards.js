@@ -34,15 +34,15 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         display: 'flex',
-        flex: '1 0 auto'
+        flex: '1 0 auto',
+        justifyContent: 'flex-start'
     }
   })
 );
 
-const ReturnHistoryCards = ({merchant}) => {
+const ReturnHistoryCards = ({merchant, cost, itemName, description}) => {
     const classes = useStyles();
     const theme = useTheme();
-
 
     return(
         <Card className={classes.root}>
@@ -52,11 +52,16 @@ const ReturnHistoryCards = ({merchant}) => {
                 </CardMedia>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
+                        {itemName}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        ${cost}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
                         {merchant}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
+                        {description}
                     </Typography>
                 </CardContent>
             </CardActionArea>

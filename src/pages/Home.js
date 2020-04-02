@@ -50,7 +50,7 @@ class Home extends Component {
         db.collection("returns")
         .onSnapshot(function(snapshot) {
             snapshot.forEach(function(doc) {
-                returns.push(doc.data().merchant);
+                returns.push(doc.data());
             });
             // console.log(returns);
             resolve(returns);
@@ -63,14 +63,16 @@ class Home extends Component {
 
     history.then((returns)=>{
         this.setState({returns:returns});
+        console.log(this.state.returns);
     });
 
-    //possible race condition here
-    if(this.props.newReturnMenuOpen === true){
-        this.setState({modalOpen: true});
-    }
 
-    console.log(this.props.newReturnMenuOpen);
+    //possible race condition here
+    // if(this.props.newReturnMenuOpen === true){
+    //     this.setState({modalOpen: true});
+    // }
+
+    // console.log(this.props.newReturnMenuOpen);
   }
 
   render() {
@@ -106,7 +108,14 @@ class Home extends Component {
 
             {   returns && returns.length > 0 &&
                     returns.map((item, index)=> {
-                        return <ReturnHistoryCards key={index} merchant={item.merchant}></ReturnHistoryCards>
+                        return <ReturnHistoryCards 
+                                    key={index}
+                                    merchant={item.merchant} 
+                                    cost={item.totalCost} 
+                                    itemName={item.itemName} 
+                                    description={item.description}
+                                >
+                                </ReturnHistoryCards>
                     })
             }
             </CTAArea>

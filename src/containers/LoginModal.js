@@ -26,7 +26,6 @@ import SingleReturnForm from './SingleReturnForm';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 
-
 const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
@@ -58,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   })
 );
 
-const NewReturnModal = ({open, handleClose}) => {
+const LoginModal = ({open, handleClose}) => {
     const [returnNumber, setReturnNumber] = useState('');
     const classes = useStyles();
     const theme = useTheme();
@@ -119,4 +118,4 @@ const ModalContainer = styled(Modal)`
     // text-align:center;
 `;
 
-export default NewReturnModal;
+export default LoginModal;

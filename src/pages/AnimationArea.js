@@ -27,7 +27,7 @@ import {
           return(
             <AnimationAreaDiv>
                 <AnimationContainer>
-                    <div style={{'height':'65%', 'display':'flex', 'flex-direction':'row', 'width':'100%'}}>
+                    <div style={{'height':'65%', 'display':'flex', 'flexDirection':'row', 'width':'100%'}}>
                         <TopLeftAnimation>
                             <CurvedLine style={{'--animation-order':'0'}} />
                             <CurvedLine style={{'--animation-order':'1'}} />
