@@ -29,8 +29,10 @@ import { bindActionCreators } from 'redux';
 // import NoHistoryNewReturnButton from '../containers/NoHistoryNewReturnButton';
 import ReturnHistoryCards from '../containers/ReturnHistoryCards';
 import NewReturnModal from '../containers/NewReturnModal';
+import LoginModal from '../containers/LoginModal';
 import { firebase, db } from '../configs/FirebaseConfig';
 import { newReturnModalAction } from '../actions/newReturnModalAction';
+import { openLoginForm } from '../actions/openLoginForm';
 
 class Home extends Component {
   constructor(props){
@@ -38,7 +40,8 @@ class Home extends Component {
 
     this.state = {
         returns: [],
-        modalOpen: false
+        modalOpen: false,
+        loginModalOpen: false
     };
       
   }
@@ -86,14 +89,17 @@ class Home extends Component {
         this.props.newReturnModalAction(false);
     };
 
+    const handleCloseLoginModal = () => {
+
+        this.setState({loginModalOpen: false});
+        this.props.openLoginForm(false);
+    }
+
     const returns = [...this.state.returns];
 
     return (
         <HomeContainer>
             <CTAArea>
-            {/* <Button size="small" color="primary">
-                Add New Return
-            </Button> */}
             {
                 this.state.returns.length === 0 &&
                 <NoHistoryContainer>
@@ -121,6 +127,7 @@ class Home extends Component {
             </CTAArea>
             <AnimationArea/>
             <NewReturnModal open={this.props.newReturnMenuOpen} handleClose={handleClose}></NewReturnModal>
+            <LoginModal open={this.props.loginFormOpen} handleClose={handleCloseLoginModal}></LoginModal>
         </HomeContainer>
     );
   }
@@ -186,12 +193,12 @@ const ImageContainer = styled.img`
 
  `;
 
-function mapStateToProps({ newReturnMenuOpen }) {
-    return { newReturnMenuOpen };
+function mapStateToProps({ newReturnMenuOpen, loginFormOpen }) {
+    return { newReturnMenuOpen, loginFormOpen };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ newReturnModalAction }, dispatch);
+    return bindActionCreators({ newReturnModalAction, openLoginForm }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

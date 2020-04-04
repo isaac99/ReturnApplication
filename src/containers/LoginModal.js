@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { 
     Button, 
@@ -24,7 +24,12 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import MultipleReturnForm from './MultipleReturnForm';
 import SingleReturnForm from './SingleReturnForm';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
+import { firebase, db, ui } from '../configs/FirebaseConfig';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { newReturnModalAction } from '../actions/newReturnModalAction';
+import { setSignedIn } from '../actions/setSignedIn';
+import LoginArea from '../pages/LoginArea';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -57,48 +62,38 @@ const useStyles = makeStyles(theme => ({
   })
 );
 
-const LoginModal = ({open, handleClose}) => {
+const LoginModal = ({open, handleClose, userSignIn}) => {
     const [returnNumber, setReturnNumber] = useState('');
     const classes = useStyles();
     const theme = useTheme();
 
+    const handleSignOut = () => {
+        firebase.auth().signOut().then(function() {
+            console.log('Signed Out');
+          }, function(error) {
+            console.error('Sign Out Error', error);
+          });
+    }
+
+    console.log(`signedInProp: ${userSignIn}`);
+
     return(
         <ModalContainer open={open} onClose={handleClose}>
             <ModalContentPaper>
-                {/* <p>testing modal....</p> */}
-                <TabContainer className={classes.buttonContainer}>
-                    <Button className={classes.button} onClick={()=>{setReturnNumber('single')}}>
-                        <span className={classes.buttonSpan}>
-                            <ReceiptIcon></ReceiptIcon>
-                            <Typography>
-                                Return Single
-                            </Typography>
-                        </span>
-                    </Button>
-                    <Button className={classes.button} onClick={()=>{setReturnNumber('multiple')}}>
-                        <span className={classes.buttonSpan}>
-                            <div className={classes.multipleIconContainer}>
-                                <ReceiptIcon></ReceiptIcon>
-                                <ReceiptIcon></ReceiptIcon>
-                                <ReceiptIcon></ReceiptIcon>
-                            </div>
-                            <Typography>
-                                Return Multiple
-                            </Typography>
-                        </span>
-                    </Button>
-                </TabContainer>
-                {returnNumber === 'single' &&
-                    <SingleReturnForm closeAction={handleClose}></SingleReturnForm>
+                {userSignIn !== false ?  
+                    <>
+                        <p>Signed in as: ${'user'}</p>
+                        <Button onClick={() =>{ handleSignOut() }}>Sign Out</Button>
+                    </>
+                    :
+                    <LoginArea open={open}></LoginArea>
                 }
-                {returnNumber === 'multiple' &&
-                    <MultipleReturnForm closeAction={handleClose}></MultipleReturnForm>
-                }
-                
             </ModalContentPaper>
         </ModalContainer>
     );
 };
+
+
 
 const ModalContentPaper = styled(Paper)`
     display:flex;
@@ -118,4 +113,12 @@ const ModalContainer = styled(Modal)`
     // text-align:center;
 `;
 
-export default LoginModal;
+function mapStateToProps({ newReturnMenuOpen, userSignIn }) {
+    return { newReturnMenuOpen, userSignIn };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ newReturnModalAction, setSignedIn }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

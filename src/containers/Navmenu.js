@@ -20,6 +20,10 @@ import {
   import Banner from './Banner';
   import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
   import AccountBoxIcon from '@material-ui/icons/AccountBox';
+  import { connect } from 'react-redux';
+  import { bindActionCreators } from 'redux';
+  import { openLoginForm } from '../actions/openLoginForm';
+
 
 class Navmenu extends Component {
   constructor(props){
@@ -53,7 +57,7 @@ class Navmenu extends Component {
                     <Button><NavLink to={'/'} onClick={() => this.closeMenu()} className="nav-link">My Returns</NavLink></Button>
                     <Button><NavLink to={'/about'} onClick={() => this.closeMenu()} className="nav-link">About</NavLink></Button>
                     {/* <Button><NavLink to={'/history'} onClick={() => this.closeMenu()} className="nav-link">Past Returns</NavLink></Button> */}
-                    <IconButton onClick={() => this.props.openLoginModal()}>
+                    <IconButton onClick={() => this.props.openLoginForm(true)}>
                         {/*<NavLink to={'/account'} onClick={() => this.closeMenu()} className="nav-link">Account</NavLink>*/}
                         <AccountBoxIcon style={{ color: 'white' }} />
                     </IconButton>
@@ -112,4 +116,12 @@ const NavLink = styled(Link)`
     font-size:23px;
 `;
 
-export default Navmenu;
+function mapStateToProps({ loginFormOpen }) {
+    return { loginFormOpen };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ openLoginForm }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navmenu);
